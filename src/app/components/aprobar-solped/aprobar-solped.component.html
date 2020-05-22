@@ -1,0 +1,47 @@
+<p-confirmDialog #cd header="Confirmation" icon="pi pi-exclamation-triangle">
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" label="Si" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="pi pi-times" label="Cancelar" (click)="cd.reject()"></button>
+    </p-footer>
+</p-confirmDialog>
+
+<app-breadcrumb></app-breadcrumb>
+
+<div class="container-fluid">
+    <div class="card mb-3">
+        <h4 class="card-header">Listado de Solicitudes de Pedidos</h4>
+        <div class="card-body" [ngClass]="'bodyCardFondo'">
+            <div class="form-group">
+                <p-accordion [multiple]="true">
+                    <!--     <div *ngFor="let SOL of solpeds"> -->
+                    <p-accordionTab header="{{'Nro. Solped: ' + SOL.idSolpedCompras}}" *ngFor="let SOL of solpeds">
+                        <p-panel>
+                            <p-header>
+                                <app-solped-one [idSolpedCompras]="SOL.idSolpedCompras"></app-solped-one>
+                                <br>
+                                <h5>Detalles: </h5>
+                                <<app-solpedsdetalle [idSolped]="SOL.idSolpedCompras" [dataExtra]="1">>
+                                </app-solpedsdetalle>
+                            </p-header>
+                            <p-footer>
+                                <div style="text-align:right">
+                                    <button type="button" pButton (click)="aprobarSOLPED(SOL)" label="Aprobar"
+                                        style="margin-right: .1em"></button>
+                                    <button type="button" pButton (click)="revisar(SOL)" label="Revisar"
+                                        style="margin-right: .1em"></button>
+                                </div>
+                            </p-footer>
+                        </p-panel>
+                    </p-accordionTab>
+                    <!--  </div> -->
+
+                    <!-- <app-solpedsdetalle [idSolped]="SOL.idSolpedCompras" [dataExtra]="1"> -->
+
+					<! -- TEST -->
+                    
+                </p-accordion>
+            </div>
+        </div>
+
+    </div>
+</div>

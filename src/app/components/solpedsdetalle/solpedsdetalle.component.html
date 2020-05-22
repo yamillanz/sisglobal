@@ -1,0 +1,47 @@
+<p-table #dt [value]="detalleSolped" [columns]="cols" [paginator]="false" [responsive]="true" autoLayout="true">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                    ariaLabelDesc="Activate to sort in descending order"
+                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+            <!-- <th>Acciones</th> -->
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-DetalleSoPed let-indice="rowIndex" let-editing="editar">
+        <tr>
+            <td>
+                {{DetalleSoPed.codigo}}
+            </td>
+            <td>
+                {{DetalleSoPed.nombre}}
+            </td>
+                
+            <td class="text-center">
+                <button pButton type="button"   icon="pi pi-eye"
+                class="ui-button-success" (click)="nada()" pTooltip="{{DetalleSoPed.descripcion}}"
+                style="margin-right: .1em"></button>
+            </td>
+            <td>
+                {{DetalleSoPed.fechaRequerida | date: 'dd/MM/yyyy'}}
+            </td>
+            <td>
+                {{DetalleSoPed.cantidad}}
+            </td>
+            <td>
+                {{DetalleSoPed.nombre_activo}}
+            </td>
+            <!--  <td style="text-align:center">
+                                <button pButton type="button"   icon="pi pi-pencil"
+                                    class="ui-button-success" (click)="verDialogo(Rol)"
+                                    style="margin-right: .1em"></button>
+                                <button pButton type="button"   icon="pi pi-trash"
+                                    class="ui-button-delete" (click)="confirmacion(Rol, indice)"></button>
+                            </td> -->
+        </tr>
+
+    </ng-template>
+</p-table>

@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-1 text-center"
+            [ngStyle]="{'background-color': '#191919'}">
+            <label class="">ID</label>
+        </div>
+        <div class="col-12 col-sm-1 text-center"
+            [ngStyle]="{'background-color': '#191919'}">
+            <label class="">Fecha Registro</label>
+        </div>
+        <div class="col-12 col-sm-4 text-center"
+            [ngStyle]="{'background-color': '#191919'}">
+            <label class="">Descripción</label>
+        </div>
+        <div class="col-12 col-sm-1 text-center"
+            [ngStyle]="{'background-color': '#191919'}">
+            <label class="">Estado actual</label>
+        </div>
+        <div class="col-12 col-sm-1 text-center"
+            [ngStyle]="{'background-color': '#191919'}">
+            <label class="">Ticket</label>
+        </div>
+        <div class="col-12 col-sm-2 text-center"
+            [ngStyle]="{'background-color': '#191919'}">
+            <label class="">Gerencia</label>
+        </div>
+        <div class="col-12 col-sm-2 text-center"
+            [ngStyle]="{'background-color': '#191919'}">
+            <label class="">Asignado: </label> 
+        </div>
+        <!-- <div class="col-12 col-sm-1 text-center"
+            [ngStyle]="{'background-color': '#191919'}">
+            <label class="">Acciones</label>
+        </div> -->
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-1 border-bottom border-light text-center"
+            [ngStyle]="{'background-color': '#454545'}">
+            <label class="">{{solpedOne.idSolpedCompras}}</label>
+        </div>
+        <div class="col-12 col-sm-1 border-bottom border-light text-center"
+            [ngStyle]="{'background-color': '#454545'}">
+            <label class="">{{solpedOne.fechaAlta | date:'dd/MM/yyyy'}}</label>
+        </div>
+        <div class="col-12 col-sm-4 border-bottom border-light text-center"
+            [ngStyle]="{'background-color': '#454545'}">
+            <label class="">{{solpedOne.descripcion}}</label>
+        </div>
+        <div class="col-12 col-sm-1 border-bottom border-light text-center"
+            [ngStyle]="{'background-color': '#454545'}">
+            <label class="">{{solpedOne.estadoActual}}</label>
+        </div>
+        <div class="col-12 col-sm-1 border-bottom border-light text-center"
+            [ngStyle]="{'background-color': '#454545'}">
+            <label class="">{{solpedOne.idTicketServicio}}</label>
+        </div>
+        <div class="col-12 col-sm-2 border-bottom border-light text-center"
+            [ngStyle]="{'background-color': '#454545'}">
+            <label class="">{{solpedOne.nombre_gerencia}}</label>
+        </div>
+        <div class="col-12 col-sm-2 border-bottom border-light text-center"
+            [ngStyle]="{'background-color': '#454545'}">
+            <label class="">{{solpedOne.nombre_asignado}}</label>
+        </div>
+       <!--  <div class="col-12 col-sm-1 border-bottom border-light text-center py-2"
+            [ngStyle]="{'background-color': '#454545'}">
+            <button pButton type="button"   icon="pi pi-users"
+                pTooltip="Asignar" tooltipPosition="top"
+                class="ui-button-success" (click)="mostrarAsignacion(solpedOne)"
+                style="margin-right: .1em" *ngIf="verAsignar"></button>
+            <button pButton type="button"   icon="pi pi-list"
+                pTooltip="Fases de la solpedOneped" tooltipPosition="top"
+                class="ui-button-success" (click)="fases(solpedOne)"
+                style="margin-right: .1em"></button>
+        </div> -->
+    </div>
+</div>

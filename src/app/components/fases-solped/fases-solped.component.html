@@ -1,0 +1,174 @@
+<p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
+<p-confirmDialog #cd header="Confirmación" icon="pi pi-exclamation-triangle">
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" label="Si" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="pi pi-times" label="Cancelar" (click)="cd.reject()"></button>
+    </p-footer>
+</p-confirmDialog>
+
+<ng-container *ngIf="displayDialogoDet == true">
+    <p-dialog [header]="tituloInsert" [(visible)]="displayDialogoDet" width="600" [contentStyle]="{'overflow':'visible'}"
+        [responsive]="true" [modal]="true" [closable]="true" >
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g ui-g-12 ui-g-nopad">
+                <div class="ui-g-12 ui-md-3 ui-label">
+                    <label for="caducidad">Proveedores: </label>
+                </div>
+                <div class="ui-g-12 ui-md-9">
+                    <p-dropdown [options]="proveedores" optionLabel="nombre" [disabled]="disPreCompra"
+                        placeholder="Seleccione" (onChange)="selecProvee($event)"
+                        [style]="{'width':'100%'}" [filter]="true" filterBy="label, value.rif, value.direccion" baseZIndex="1" autoZIndex="false">
+                    </p-dropdown>
+                </div>
+
+            </div>
+
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <!-- <button type="button" (click)="asignarDato()" pButton label="Asignar"></button>  -->
+                <button type="button" pButton (click)="cerrarDialogoSolped()" label="Cerrar"></button>
+
+            </div>
+        </p-footer>
+
+    </p-dialog>
+</ng-container>
+
+<app-breadcrumb></app-breadcrumb>
+
+<div class="container-fluid">
+    <div class="card mb-3">
+        <h4 class="card-header">Fases de la Solicitud de Pedido</h4>
+        <div class="card-body" [ngClass]="'bodyCardFondo'">
+            <app-solped-one [idSolpedCompras]="idSolpedCompras"></app-solped-one>
+            <br>
+            <h5>Detalles: </h5>
+            <app-solpedsdetalle [idSolped]="idSolpedCompras"></app-solpedsdetalle>
+            <br>
+            <br>
+            <!--   <div class="card mb-3">
+                <h5 class="card-header">Cambiar las fases: </h5>
+                <div class="card-body"> -->
+            <h5>Cambiar las fases: </h5>
+            <p-steps [model]="pasos" [(activeIndex)]="activeIndex" [readonly]="lockFases"></p-steps>
+            <br>
+            <div class="ui-grid ui-grid-responsive ui-fluid">
+                <div class="ui-g ui-g-12 ui-g-nopad" style="background-color:#1E1E1E">
+                    <div class="ui-g-12 ui-md-1 ui-label">
+                        <label>Observación</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-9 ui-label">
+                        <input [(ngModel)]="observacion" placeholder="Ingrese la observacion necesaria" pInputText
+                            id="observacion" />
+                    </div>
+                    <div class="ui-g-12 ui-md-2 ui-label">
+                        <button type="button" pButton icon="pi pi-pencil" (click)="registrarObservacion()"
+                            label="Registrar Observación"></button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <ng-container
+                *ngIf="solped.idEstadoActual == 7 || solped.idEstadoActual == 8 || solped.idEstadoActual == 11">
+                <p-table #dt3 [value]="detallePreOC" [columns]="colsPreOC" autoLayout="true">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                [ngStyle]="{'width': col.width}">
+                                {{col.header}}
+
+                            </th>
+
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-DetalleSoPed let-indice="rowIndex" let-editing="editar">
+                        <tr>
+                            <td style="width: 3%">
+                                <!-- aaaa {{DetalleSoPed.observaciones}} -->
+                                <div [attr.id]="'divmos' + indice"></div>
+                                <p-overlayPanel #op1 [showCloseIcon]="true" [dismissable]="true">
+                                    <input type="text" style="width: 30rem" [(ngModel)]="DetalleSoPed.notas"
+                                        pInputText />
+                                </p-overlayPanel>
+                                <button type="button" pButton icon="pi pi-bars"
+                                    (click)="op1.toggle($event, 'divmos' + indice)"></button>
+                                <!-- <button type="button" pButton icon="pi pi-pencil" (click)="mostrarNotas($event, op1, DetalleSoPed)"></button>  -->
+                                <!--  <span style="text-align: right;"><button type="button" pButton icon="pi pi-bars" (click)="mostrarDialogos(1, DetalleSoPed)"></button> </span> -->
+                            </td>
+                            <td style="width: 10%">
+                                {{DetalleSoPed.codigo}}
+                            </td>
+                            <td style="width: 20%">
+                                {{DetalleSoPed.nombre}}
+                            </td>
+                            <td style="width: 5%">
+                                {{DetalleSoPed.fechaRequerida | date: 'dd/MM/yyyy'}}
+                            </td>
+                            <td style="width: 10%">
+                                {{DetalleSoPed.nombre_activo}}
+                            </td>
+                            <td style="width: 5%">
+                                {{DetalleSoPed.cantidad}}
+                            </td>
+
+                            <td style="width: 5%">
+                                <input type="text" style="width: 2rem" [(ngModel)]="DetalleSoPed.cant_encontrada"
+                                    pKeyFilter="pint" [disabled]="disPreCompra" pInputText />
+                            </td>
+                            <td style="width: 17%">
+                                <span style="text-align: left;">{{ DetalleSoPed.nombre_proveedor }}</span>
+                                <button [disabled]="disPreCompra" style="float: right;" type="button" pButton icon="pi pi-pi-search-plus"
+                                    (click)="mostrarDialogos(1, DetalleSoPed)"></button>
+
+                                <!--  <p-dropdown [options]="proveedores" optionLabel="nombre" [disabled]="disPreCompra"
+                                    placeholder="Seleccione" (onChange)="selecProvee($event, DetalleSoPed)"
+                                    [style]="{'width':'100%'}" filter="true" filterBy="nombre" baseZIndex="1" autoZIndex="false">
+                                </p-dropdown> -->
+                            </td>
+
+                            <!--    <td pEditableColumn>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <p-dropdown [options]="proveedores" optionLabel="nombre"
+                                                [disabled]="disPreCompra" placeholder="Seleccione"
+                                                (onChange)="selecProvee($event, DetalleSoPed)"
+                                                [style]="{'width':'100%'}">
+                                            </p-dropdown>
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{DetalleSoPed.idProveedor}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>  -->
+                            <td style="width: 10%">
+                                <input type="text" style="width: 7rem" [(ngModel)]="DetalleSoPed.precio"
+                                    pKeyFilter="pnum" [disabled]="disPreCompra" pInputText />
+                            </td>
+
+                        </tr>
+
+                    </ng-template>
+                </p-table>
+            </ng-container>
+
+            <!--    </div>
+            </div> -->
+
+            <br>
+            <br>
+
+
+            <h5>Trazas de la Solicitud de Pedido: </h5>
+            <app-trazas-solped [idSolpedCompras]="idSolpedCompras"></app-trazas-solped>
+            <br>
+
+
+        </div>
+        <div class="card-footer text-center">
+            <button type="button" pButton icon="pi pi-angle-double-left" (click)="volver()" label="Volver"></button>
+        </div>
+    </div>
+</div>
