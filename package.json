@@ -43,7 +43,7 @@
     "ts-md5": "^1.2.6",
     "tslib": "^1.10.0",
     "written-number": "^0.8.1",
-    "xlsx": "^0.15.1",
+    "xlsx": "^0.17.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
